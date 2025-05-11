@@ -1,20 +1,18 @@
-package com.ender.loginstreakmod;
+package com.ender.cobblemonedits;
 
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
+import net.minecraft.util.math.BlockPos;
 
 public class ModMain implements ModInitializer {
-    public static final String MOD_ID = "loginstreakmod";
-
     @Override
     public void onInitialize() {
-        // Load milestone configuration at mod initialization
-        ConfigManager.loadMilestones();
-        System.out.println("[" + MOD_ID + "] Loaded milestone rewards.");
+        SpawnCommand.register();
 
-        // Register login event
-        ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
-            StreakTracker.onPlayerJoin(handler.getPlayer());
+        ServerTickEvents.END_SERVER_TICK.register(server -> {
+            server.getWorlds().forEach(world -> {
+                TimedSpawnManager.onServerTick((ServerWorld) world);
+            });
         });
     }
 }
