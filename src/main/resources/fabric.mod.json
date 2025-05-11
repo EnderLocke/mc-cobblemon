@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "id": "cobblemonedits",
+  "authors": ["Ender Locke"],
+  "version": "0.0.1",
+  "name": "Our Cobblemon Edits",
+  "description": "like it says.",
+  "entrypoints": {
+    "main": [
+      "com.ender.cobblemonedits.ModMain"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.16.0",
+    "minecraft": "1.21.1",
+    "java": ">=21",
+    "fabric-api": "*"
+  }
+}
