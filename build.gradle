@@ -1,10 +1,11 @@
 plugins {
     id 'fabric-loom' version '1.10-SNAPSHOT'
     id 'maven-publish'
+    id 'java'
     id 'org.jetbrains.kotlin.jvm' version '2.1.0'
 }
 
-archivesBaseName = "cobblemonedits"
+archivesBaseName = "communitydayspawaner"
 group = 'com.ender'
 version = "${project.mod_version}"
 
@@ -22,7 +23,7 @@ dependencies {
     mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
-    modImplementation "com.cobblemon:neoforge:${project.cobblemon_version}"
+    modImplementation "com.cobblemon:fabric:${project.cobblemon_version}"
     modImplementation("net.fabricmc:fabric-language-kotlin:${project.fabric_kotlin_version}")
 }
 
