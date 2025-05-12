@@ -1,4 +1,4 @@
-package com.ender.cobblemonedits.command;
+package com.ender.communitydayspawner.commands;
 
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
@@ -7,8 +7,12 @@ import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.Text;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.server.world.ServerWorld;
+import com.ender.communitydayspawner.TimedSpawnManager;  // Ensure this import matches the package where TimedSpawnManager is located
 
-public class SpawnCommand {
+public class StartTimedSpawnCommand {
+
     public static void register() {
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
             dispatcher.register(LiteralArgumentBuilder.<ServerCommandSource>literal("starttimedspawn")
@@ -18,11 +22,19 @@ public class SpawnCommand {
                                     .executes(ctx -> {
                                         String pokemon = StringArgumentType.getString(ctx, "pokemon");
                                         int minutes = IntegerArgumentType.getInteger(ctx, "minutes");
-                                        BlockPos pos = ctx.getSource().getPlayer().getBlockPos();
 
-                                        TimedSpawnManager.startSpawning(pokemon, minutes, pos);
-                                        ctx.getSource().sendFeedback(() ->
+                                        // Get the player's position and world
+                                        ServerCommandSource source = ctx.getSource();
+                                        BlockPos pos = source.getPlayer().getBlockPos();
+                                        ServerWorld world = source.getWorld();
+
+                                        // Start spawning the Pokémon
+                                        TimedSpawnManager.startSpawning(world, pokemon, minutes, pos);
+
+                                        // Send feedback to the player
+                                        source.sendFeedback(() ->
                                                 Text.literal("✅ Timed spawn of " + pokemon + " started for " + minutes + " minute(s)."), false);
+
                                         return 1;
                                     }))));
         });
