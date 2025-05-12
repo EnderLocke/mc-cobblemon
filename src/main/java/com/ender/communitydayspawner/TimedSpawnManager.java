@@ -10,10 +10,12 @@ import com.cobblemon.mod.common.pokemon.Pokemon;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 
+import java.util.Optional;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ArrayList;
@@ -32,14 +34,13 @@ public class TimedSpawnManager {
 
         int level = world.getRandom().nextInt(31) + 10; // Level 10–40
         props.setLevel(level);
+        //props.setCatchRate(90); // Correct way to set catch rate
 
         // 15% shiny chance
         props.setShiny(Math.random() < 0.15);
 
         // Create the Pokémon instance
         Pokemon pokemon = props.create();
-
-        pokemon.getSpeciesData().setCatchRate(90);
 
         if (pokemon == null) {
             System.err.println("❌ Failed to create Pokémon for species: " + species);
