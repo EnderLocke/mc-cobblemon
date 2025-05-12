@@ -22,7 +22,7 @@ public class TimedSpawnInstance {
     }
 
     public void trySpawn(ServerWorld world) {
-        if (world.getRandom().nextFloat() < 0.25f) { // 25% chance per tick
+        if (world.getRandom().nextFloat() < 0.15f) { // 15% chance per tick
             TimedSpawnManager.spawnPokemon(world, species, origin);  // Use the stored origin for spawn
         }
     }

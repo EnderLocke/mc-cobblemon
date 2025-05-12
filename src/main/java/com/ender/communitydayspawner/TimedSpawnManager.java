@@ -64,14 +64,22 @@ public class TimedSpawnManager {
         }
     }
 
-    private static BlockPos getRandomPositionInSameChunk(ServerWorld world, BlockPos origin) {
-        int chunkX = origin.getX() >> 4;
-        int chunkZ = origin.getZ() >> 4;
+    private static BlockPos getRandomPositionNearby(ServerWorld world, BlockPos origin) {
+        return getRandomPositionNearby(world, origin, 5);
+    }
 
-        int localX = (chunkX << 4) + world.random.nextInt(16);
-        int localZ = (chunkZ << 4) + world.random.nextInt(16);
+    private static BlockPos getRandomPositionNearby(ServerWorld world, BlockPos origin, int chunkRadius) {
+        int originChunkX = origin.getX() >> 4;
+        int originChunkZ = origin.getZ() >> 4;
 
-        // Ensure valid y-coordinate
+        // Pick a random chunk within the chunkRadius range around the origin chunk
+        int randomChunkX = originChunkX + world.random.nextInt(chunkRadius * 2 + 1) - chunkRadius;
+        int randomChunkZ = originChunkZ + world.random.nextInt(chunkRadius * 2 + 1) - chunkRadius;
+
+        // Then pick a random block position within that chunk
+        int localX = (randomChunkX << 4) + world.random.nextInt(16);
+        int localZ = (randomChunkZ << 4) + world.random.nextInt(16);
+
         int y = world.getTopY(net.minecraft.world.Heightmap.Type.WORLD_SURFACE, localX, localZ);
 
         return new BlockPos(localX, y, localZ);
