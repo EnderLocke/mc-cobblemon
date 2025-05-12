@@ -1,0 +1,44 @@
+plugins {
+    id 'fabric-loom' version '1.10-SNAPSHOT'
+    id 'maven-publish'
+    id 'org.jetbrains.kotlin.jvm' version '2.1.0'
+}
+
+archivesBaseName = "cobblemonedits"
+group = 'com.ender'
+version = "${project.mod_version}"
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.release = 21
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
+    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+    modImplementation "com.cobblemon:neoforge:${project.cobblemon_version}"
+    modImplementation("net.fabricmc:fabric-language-kotlin:${project.fabric_kotlin_version}")
+}
+
+repositories {
+    mavenCentral()
+    maven { url "https://maven.fabricmc.net/" }
+    maven { url "https://maven.neoforged.net/releases" }
+    maven { url "https://maven.impactdev.net/repository/development/" }
+}
+
+loom {
+    splitEnvironmentSourceSets()
+
+    mods {
+        "loginstreakmod" {
+            sourceSet sourceSets.main
+        }
+    }
+}
