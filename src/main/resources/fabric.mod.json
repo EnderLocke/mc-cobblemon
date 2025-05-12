@@ -4,7 +4,7 @@
   "authors": ["Ender Locke"],
   "version": "0.0.1",
   "name": "Community Day Spawner",
-  "description": "allows to spawn pokemon like go's communitydays.",
+  "description": "allows to spawn pokemon like go's community days.",
   "entrypoints": {
     "main": [
       "com.ender.communitydayspawner.ModMain"
