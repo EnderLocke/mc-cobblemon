@@ -94,9 +94,11 @@ public class TimedSpawnManager {
                     );
                 }
 
-// Broadcast top catchers
+                // Broadcast top catchers
                 List<Map.Entry<UUID, Integer>> topCaught = CatchTracker.getTopCatchers(species, 3);
                 List<Map.Entry<UUID, Integer>> topShiny = CatchTracker.getTopShinyCatchers(species, 3);
+
+                server.getPlayerManager().broadcast(Text.literal(""), false);
 
                 server.getPlayerManager().broadcast(
                         Text.literal("🏆 Top " + species + " catchers:")
@@ -118,6 +120,8 @@ public class TimedSpawnManager {
                             false
                     );
                 }
+
+                server.getPlayerManager().broadcast(Text.literal(""), false);
 
                 server.getPlayerManager().broadcast(
                         Text.literal("✨ Top shiny hunters:")
