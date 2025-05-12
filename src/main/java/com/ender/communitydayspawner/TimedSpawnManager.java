@@ -38,6 +38,9 @@ public class TimedSpawnManager {
 
         // Create the Pokémon instance
         Pokemon pokemon = props.create();
+
+        pokemon.getSpeciesData().setCatchRate(90);
+
         if (pokemon == null) {
             System.err.println("❌ Failed to create Pokémon for species: " + species);
             return null;
@@ -79,7 +82,7 @@ public class TimedSpawnManager {
                 task.despawnAll(world);
                 MinecraftServer server = world.getServer();
 
-// Send per-player stats
+        // Send per-player stats
                 for (ServerPlayerEntity player : server.getPlayerManager().getPlayerList()) {
                     UUID id = player.getUuid();
                     int caught = CatchTracker.getPlayerCaughtCount(id, species);
