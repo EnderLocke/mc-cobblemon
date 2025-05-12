@@ -1,17 +1,24 @@
 package com.ender.communitydayspawner;
 
+import com.ender.communitydayspawner.tracking.CatchTracker;
+
 import com.cobblemon.mod.common.api.pokemon.PokemonProperties;
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity;
 import com.cobblemon.mod.common.CobblemonEntities;
 import com.cobblemon.mod.common.pokemon.Pokemon;
+
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.text.Text;
 import net.minecraft.world.chunk.Chunk;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.network.ServerPlayerEntity;
 
 import java.util.Iterator;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.UUID;
+import java.util.Map;
 
 public class TimedSpawnManager {
 
@@ -129,5 +136,14 @@ public class TimedSpawnManager {
         int y = world.getTopY(net.minecraft.world.Heightmap.Type.WORLD_SURFACE, localX, localZ);
 
         return new BlockPos(localX, y, localZ);
+    }
+
+    public static boolean isCommunityDaySpecies(String species) {
+        for (TimedSpawnInstance task : tasks) {
+            if (task.getSpecies().equalsIgnoreCase(species)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

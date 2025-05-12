@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "communitydayspawner",
   "authors": ["Ender Locke"],
-  "version": "0.0.2",
+  "version": "0.0.3",
   "name": "Community Day Spawner",
   "description": "allows to spawn pokemon like go's community days.",
   "entrypoints": {

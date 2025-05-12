@@ -4,6 +4,7 @@ import com.ender.communitydayspawner.TimedSpawnManager;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.CommandDispatcher;
@@ -30,8 +31,13 @@ public class StartTimedSpawnCommand {
                                             Text.literal("✅ You just started the community day for " + pokemon + " for " + minutes + " minute(s)."), false);
 
                                     // Broadcast to all players
-                                    ctx.getSource().getServer().getPlayerManager().broadcast(
-                                            Text.literal("✅ Community Day has started! Catch all the " + pokemon + " you can for the next " + minutes + " minute(s)."), false);
+                                    Text message = Text.literal("✅ Community Day has started! Catch all the ")
+                                            .append(Text.literal(pokemon).formatted(Formatting.AQUA))
+                                            .append(" you can for the next ")
+                                            .append(Text.literal(String.valueOf(minutes)).formatted(Formatting.YELLOW))
+                                            .append(" minute(s).");
+
+                                    ctx.getSource().getServer().getPlayerManager().broadcast(message, false);
 
                                     return 1;
                                 })
