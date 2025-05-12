@@ -1,4 +1,4 @@
-package com.ender.cobblemonedits;
+package com.ender.cobblemonedits.command;
 
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.arguments.IntegerArgumentType;

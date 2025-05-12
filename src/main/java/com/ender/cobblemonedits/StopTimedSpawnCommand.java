@@ -6,7 +6,7 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.Text;
-import com.yourmodid.loginstreakmod.TimedSpawnManager;
+import com.ender.cobblemonedits.TimedSpawnManager;
 
 public class StopTimedSpawnCommand {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
