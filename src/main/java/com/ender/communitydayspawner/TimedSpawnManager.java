@@ -6,6 +6,7 @@ import com.cobblemon.mod.common.CobblemonEntities;
 import com.cobblemon.mod.common.pokemon.Pokemon;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.text.Text;
 import net.minecraft.world.chunk.Chunk;
 
 import java.util.Iterator;
@@ -57,7 +58,9 @@ public class TimedSpawnManager {
             TimedSpawnInstance task = iter.next();
             if (task.isExpired()) {
                 iter.remove();
-                System.out.println("Timed spawn ended for " + task.getSpecies());
+                world.getServer().getPlayerManager().broadcast(
+                        Text.literal("⏰ Community Day for " + task.getSpecies() + " has ended!"), false
+                );
             } else {
                 task.trySpawn(world);
             }

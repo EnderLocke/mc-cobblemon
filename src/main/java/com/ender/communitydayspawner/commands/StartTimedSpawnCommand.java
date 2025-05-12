@@ -27,8 +27,11 @@ public class StartTimedSpawnCommand {
 
                                     // Send feedback to the player
                                     ctx.getSource().sendFeedback(() ->
-                                            Text.literal("✅ Timed spawn of " + pokemon + " started for " + minutes + " minute(s)."), false);
+                                            Text.literal("✅ You just started the community day for " + pokemon + " started for " + minutes + " minute(s)."), false);
                                     return 1;
+                                    //Send to server
+                                    ctx.getSource().getServer().getPlayerManager().broadcast(
+                                            Text.literal("✅ Community Day has started! Catch all the " + pokemon + " you can for the next " + minutes + " minute(s)."), false);
                                 }))));
     }
 }
