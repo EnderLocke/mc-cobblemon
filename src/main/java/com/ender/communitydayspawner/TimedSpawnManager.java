@@ -35,7 +35,7 @@ public class TimedSpawnManager {
         // Create the Pokemon and its entity
         Pokemon pokemon = props.create();
         PokemonEntity entity = new PokemonEntity(world, pokemon, CobblemonEntities.POKEMON);
-        BlockPos spawnPos = getRandomPositionInSameChunk(world, origin);
+        BlockPos spawnPos = getRandomPositionNearby(world, origin);
         entity.refreshPositionAndAngles(spawnPos, 0.0F, 0.0F);
 
         // Spawn it in the world with an increased spawn rate
@@ -65,7 +65,7 @@ public class TimedSpawnManager {
     }
 
     private static BlockPos getRandomPositionNearby(ServerWorld world, BlockPos origin) {
-        return getRandomPositionNearby(world, origin, 5);
+        return getRandomPositionNearby(world, origin, 10);
     }
 
     private static BlockPos getRandomPositionNearby(ServerWorld world, BlockPos origin, int chunkRadius) {
