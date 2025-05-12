@@ -13,7 +13,7 @@ public class ModMain implements ModInitializer {
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
             StartTimedSpawnCommand.register(dispatcher); // Correct method call
         });
-
+        CatchTracker.init();                  // <--- this is what activates the listener
         // Register tick event for world
         ServerTickEvents.END_WORLD_TICK.register(world -> {
             if (world instanceof ServerWorld serverWorld) {
