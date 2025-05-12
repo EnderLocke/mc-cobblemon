@@ -70,42 +70,74 @@ public class TimedSpawnManager {
             if (task.isExpired()) {
                 String species = task.getSpecies();
                 world.getServer().getPlayerManager().broadcast(
-                        Text.literal("⏰ Community Day for " + species + " has ended!"), false
+                        Text.literal("⏰ Community Day for ")
+                                .append(Text.literal(species).formatted(Formatting.GREEN, Formatting.BOLD))
+                                .append(" has ended!")
+                                .formatted(Formatting.YELLOW), false
                 );
-                task.despawnAll(world);
 
+                task.despawnAll(world);
                 MinecraftServer server = world.getServer();
 
-                // Send per-player stats
+// Send per-player stats
                 for (ServerPlayerEntity player : server.getPlayerManager().getPlayerList()) {
                     UUID id = player.getUuid();
                     int caught = CatchTracker.getPlayerCaughtCount(id, species);
                     int shiny = CatchTracker.getPlayerShinyCount(id, species);
 
-                    player.sendMessage(Text.literal("📊 Your stats for " + species + ": " +
-                            caught + " caught, " + shiny + " shiny"), false);
+                    player.sendMessage(
+                            Text.literal("📊 Your stats for ")
+                                    .append(Text.literal(species).formatted(Formatting.GREEN, Formatting.BOLD))
+                                    .append(": " + caught + " caught, " + shiny + " shiny")
+                                    .formatted(Formatting.AQUA),
+                            false
+                    );
                 }
 
-                // Broadcast top 3
+// Broadcast top catchers
                 List<Map.Entry<UUID, Integer>> topCaught = CatchTracker.getTopCatchers(species, 3);
                 List<Map.Entry<UUID, Integer>> topShiny = CatchTracker.getTopShinyCatchers(species, 3);
 
-                server.getPlayerManager().broadcast(Text.literal("🏆 Top " + species + " catchers:"), false);
+                server.getPlayerManager().broadcast(
+                        Text.literal("🏆 Top " + species + " catchers:")
+                                .formatted(Formatting.GOLD, Formatting.BOLD),
+                        false
+                );
+
                 for (int i = 0; i < topCaught.size(); i++) {
-                    String name = server.getPlayerManager().getPlayer(topCaught.get(i).getKey()) != null ?
-                            server.getPlayerManager().getPlayer(topCaught.get(i).getKey()).getName().getString() :
-                            topCaught.get(i).getKey().toString();
+                    String name = Optional.ofNullable(server.getPlayerManager().getPlayer(topCaught.get(i).getKey()))
+                            .map(player -> player.getName().getString())
+                            .orElse(topCaught.get(i).getKey().toString());
+
                     int count = topCaught.get(i).getValue();
-                    server.getPlayerManager().broadcast(Text.literal("  #" + (i+1) + ": " + name + " - " + count), false);
+
+                    server.getPlayerManager().broadcast(
+                            Text.literal("  #" + (i + 1) + ": ")
+                                    .append(Text.literal(name).formatted(Formatting.LIGHT_PURPLE))
+                                    .append(" - " + count),
+                            false
+                    );
                 }
 
-                server.getPlayerManager().broadcast(Text.literal("✨ Top shiny hunters:"), false);
+                server.getPlayerManager().broadcast(
+                        Text.literal("✨ Top shiny hunters:")
+                                .formatted(Formatting.AQUA, Formatting.BOLD),
+                        false
+                );
+
                 for (int i = 0; i < topShiny.size(); i++) {
-                    String name = server.getPlayerManager().getPlayer(topShiny.get(i).getKey()) != null ?
-                            server.getPlayerManager().getPlayer(topShiny.get(i).getKey()).getName().getString() :
-                            topShiny.get(i).getKey().toString();
+                    String name = Optional.ofNullable(server.getPlayerManager().getPlayer(topShiny.get(i).getKey()))
+                            .map(player -> player.getName().getString())
+                            .orElse(topShiny.get(i).getKey().toString());
+
                     int count = topShiny.get(i).getValue();
-                    server.getPlayerManager().broadcast(Text.literal("  #" + (i+1) + ": " + name + " - " + count), false);
+
+                    server.getPlayerManager().broadcast(
+                            Text.literal("  #" + (i + 1) + ": ")
+                                    .append(Text.literal(name).formatted(Formatting.LIGHT_PURPLE))
+                                    .append(" - " + count),
+                            false
+                    );
                 }
 
                 // Optional: clear counts for the next event
