@@ -61,10 +61,48 @@ public class TimedSpawnManager {
         while (iter.hasNext()) {
             TimedSpawnInstance task = iter.next();
             if (task.isExpired()) {
+                String species = task.getSpecies();
                 world.getServer().getPlayerManager().broadcast(
-                        Text.literal("⏰ Community Day for " + task.getSpecies() + " has ended!"), false
+                        Text.literal("⏰ Community Day for " + species + " has ended!"), false
                 );
                 task.despawnAll(world);
+
+                MinecraftServer server = world.getServer();
+
+                // Send per-player stats
+                for (ServerPlayerEntity player : server.getPlayerManager().getPlayerList()) {
+                    UUID id = player.getUuid();
+                    int caught = CatchTracker.getPlayerCaughtCount(id, species);
+                    int shiny = CatchTracker.getPlayerShinyCount(id, species);
+
+                    player.sendMessage(Text.literal("📊 Your stats for " + species + ": " +
+                            caught + " caught, " + shiny + " shiny"), false);
+                }
+
+                // Broadcast top 3
+                List<Map.Entry<UUID, Integer>> topCaught = CatchTracker.getTopCatchers(species, 3);
+                List<Map.Entry<UUID, Integer>> topShiny = CatchTracker.getTopShinyCatchers(species, 3);
+
+                server.getPlayerManager().broadcast(Text.literal("🏆 Top " + species + " catchers:"), false);
+                for (int i = 0; i < topCaught.size(); i++) {
+                    String name = server.getPlayerManager().getPlayer(topCaught.get(i).getKey()) != null ?
+                            server.getPlayerManager().getPlayer(topCaught.get(i).getKey()).getName().getString() :
+                            topCaught.get(i).getKey().toString();
+                    int count = topCaught.get(i).getValue();
+                    server.getPlayerManager().broadcast(Text.literal("  #" + (i+1) + ": " + name + " - " + count), false);
+                }
+
+                server.getPlayerManager().broadcast(Text.literal("✨ Top shiny hunters:"), false);
+                for (int i = 0; i < topShiny.size(); i++) {
+                    String name = server.getPlayerManager().getPlayer(topShiny.get(i).getKey()) != null ?
+                            server.getPlayerManager().getPlayer(topShiny.get(i).getKey()).getName().getString() :
+                            topShiny.get(i).getKey().toString();
+                    int count = topShiny.get(i).getValue();
+                    server.getPlayerManager().broadcast(Text.literal("  #" + (i+1) + ": " + name + " - " + count), false);
+                }
+
+                // Optional: clear counts for the next event
+                CatchTracker.reset();
                 iter.remove();
             } else {
                 task.trySpawn(world);

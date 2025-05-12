@@ -74,4 +74,20 @@ public class CatchTracker {
         playerCaughtCounts.clear();
         playerShinyCounts.clear();
     }
+
+    public static List<Map.Entry<UUID, Integer>> getTopCatchers(String species, int topN) {
+        return playerCaughtCounts.entrySet().stream()
+                .map(e -> Map.entry(e.getKey(), e.getValue().getOrDefault(species, 0)))
+                .sorted((a, b) -> b.getValue() - a.getValue())
+                .limit(topN)
+                .toList();
+    }
+
+    public static List<Map.Entry<UUID, Integer>> getTopShinyCatchers(String species, int topN) {
+        return playerShinyCounts.entrySet().stream()
+                .map(e -> Map.entry(e.getKey(), e.getValue().getOrDefault(species, 0)))
+                .sorted((a, b) -> b.getValue() - a.getValue())
+                .limit(topN)
+                .toList();
+    }
 }
