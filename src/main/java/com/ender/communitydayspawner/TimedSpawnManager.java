@@ -18,33 +18,37 @@ public class TimedSpawnManager {
     private static boolean isActive = false;
     private static final List<TimedSpawnInstance> tasks = new ArrayList<>();
 
-    public static void spawnPokemon(ServerWorld world, String species, BlockPos origin) {
-        // Build PokemonProperties
+    public static PokemonEntity spawnPokemon(ServerWorld world, String species, BlockPos origin) {
+        // Build properties
         PokemonProperties props = new PokemonProperties();
         props.setSpecies(species);
-        int randomLevel = world.getRandom().nextInt(31) + 10; // Generates a number between 10 and 40
-        props.setLevel(randomLevel);
 
-        // Increase shiny chance to 15%
-        double shinyChance = 0.15; // 15% shiny chance
-        if (Math.random() < shinyChance) {
-            props.setShiny(true);  // Set the Pokémon as shiny if the random chance is below 0.15
-        } else {
-            props.setShiny(false); // Otherwise, it's not shiny
+        int level = world.getRandom().nextInt(31) + 10; // Level 10–40
+        props.setLevel(level);
+
+        // 15% shiny chance
+        props.setShiny(Math.random() < 0.15);
+
+        // Create the Pokémon instance
+        Pokemon pokemon = props.create();
+        if (pokemon == null) {
+            System.err.println("❌ Failed to create Pokémon for species: " + species);
+            return null;
         }
 
-        // Create the Pokemon and its entity
-        Pokemon pokemon = props.create();
+        // Create the entity
         PokemonEntity entity = new PokemonEntity(world, pokemon, CobblemonEntities.POKEMON);
         BlockPos spawnPos = getRandomPositionNearby(world, origin);
         entity.refreshPositionAndAngles(spawnPos, 0.0F, 0.0F);
 
-        // Spawn it in the world with an increased spawn rate
+        // Try to spawn it
         boolean success = world.spawnEntity(entity);
         if (success) {
-            System.out.println("Spawned " + species + " " + origin.toShortString());
+            System.out.println("✅ Spawned " + species + " at " + spawnPos.toShortString());
+            return entity;
         } else {
-            System.out.println("Failed to spawn " + species);
+            System.err.println("❌ Failed to spawn " + species + " at " + spawnPos.toShortString());
+            return null;
         }
     }
 
@@ -57,10 +61,11 @@ public class TimedSpawnManager {
         while (iter.hasNext()) {
             TimedSpawnInstance task = iter.next();
             if (task.isExpired()) {
-                iter.remove();
                 world.getServer().getPlayerManager().broadcast(
                         Text.literal("⏰ Community Day for " + task.getSpecies() + " has ended!"), false
                 );
+                task.despawnAll(world);
+                iter.remove();
             } else {
                 task.trySpawn(world);
             }
