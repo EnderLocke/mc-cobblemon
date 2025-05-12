@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
-  "id": "cobblemonedits",
+  "id": "communitydayspawner",
   "authors": ["Ender Locke"],
   "version": "0.0.1",
-  "name": "Our Cobblemon Edits",
-  "description": "like it says.",
+  "name": "Community Day Spawner",
+  "description": "allows to spawn pokemon like go's communitydays.",
   "entrypoints": {
     "main": [
-      "com.ender.cobblemonedits.ModMain"
+      "com.ender.communitydayspawner.ModMain"
     ]
   },
   "depends": {

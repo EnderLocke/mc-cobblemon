@@ -19,18 +19,10 @@ public class ModMain implements ModInitializer {
         CommandRegistrationCallback.EVENT.register(ModMain::registerCommands);
 
         ServerTickEvents.END_WORLD_TICK.register(world -> {
-            if (!(world instanceof ServerWorld serverWorld)) return;
-
-            // Example: 1% chance to spawn per tick (~once every 5 seconds per world)
-            if (serverWorld.getRandom().nextFloat() < 0.01F) {
-                BlockPos playerPos = serverWorld.getPlayers().isEmpty()
-                        ? serverWorld.getSpawnPos()
-                        : serverWorld.getPlayers().get(0).getBlockPos();
-
-                TimedSpawnManager.startSpawning(serverWorld, "pikachu", 2, playerPos);
+            if (world instanceof ServerWorld serverWorld) {
+                TimedSpawnManager.tick(serverWorld);
             }
         });
-    });
     }
 
     public static void registerCommands(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess registryAccess, CommandManager.RegistrationEnvironment environment) {
