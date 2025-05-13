@@ -14,7 +14,18 @@ import net.minecraft.util.Formatting;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 
-import java.util.*;
+// Java standard library
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.UUID;
+import java.util.Random;
+import java.util.Map;
+import java.util.Optional;
+
+// Fabric / Minecraft imports
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.math.BlockPos;
 
 public class TimedSpawnManager {
 
@@ -41,7 +52,7 @@ public class TimedSpawnManager {
                 task.markWarned();
             }
 
-            if (task.isOver()) {
+            if (task.hasFullyEnded()) {
                 endCommunityDay(world, task);
                 iter.remove();
             } else {
