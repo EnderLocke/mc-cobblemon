@@ -29,6 +29,10 @@ public class ModMain implements ModInitializer {
             StartLegendarySpawnCommand.register(dispatcher); // Correct method call
         });
 
+        CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
+            StartMythicalSpawnCommand.register(dispatcher); // Correct method call
+        });
+
         CatchRateBooster.init();
 
         CobblemonEvents.POKEMON_CAPTURED.subscribe(Priority.NORMAL, event -> {

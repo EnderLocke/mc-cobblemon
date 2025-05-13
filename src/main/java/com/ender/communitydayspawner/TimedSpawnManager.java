@@ -3,6 +3,7 @@ package com.ender.communitydayspawner;
 import com.ender.communitydayspawner.tracking.CatchTracker;
 import com.ender.communitydayspawner.spawners.TimedSpawnInstance;
 import com.ender.communitydayspawner.utils.LegendaryUtils;
+import com.ender.communitydayspawner.utils.MythicalUtils;
 
 import com.cobblemon.mod.common.api.pokemon.PokemonProperties;
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity;
@@ -58,6 +59,31 @@ public class TimedSpawnManager {
         ));
 
         System.out.println("🔮 Legendary Community Day: " + selected + " will spawn!");
+    }
+
+    public static void activateMythicalDaySpawner(int minutes, BlockPos origin) {
+        List<String> MYTHICAL_SPECIES = LegendaryUtils.getAllLegendarySpecies();
+
+        if (LEGENDARY_SPECIES.isEmpty()) {
+            System.err.println("No mythical Pokémon available to spawn.");
+            return;
+        }
+
+        String selected = MYTHICAL_SPECIES.get(new Random().nextInt(LEGENDARY_SPECIES.size()));
+
+        tasks.add(new TimedSpawnInstance(
+                selected,
+                minutes,
+                origin,
+                40,    // min level for legendaries
+                60,    // level range (so 60–99)
+                25,    // average IVs higher
+                0.05,  // lower shiny rate
+                0.005, /// much lower spawn rate
+                15     // larger chunk radius
+        ));
+
+        System.out.println("🔮 Mythical Community Day: " + selected + " will spawn!");
     }
 
     public static boolean isCommunityDaySpecies(String species) {
