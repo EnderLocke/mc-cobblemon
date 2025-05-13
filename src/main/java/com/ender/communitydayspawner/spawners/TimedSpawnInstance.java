@@ -1,4 +1,4 @@
-package com.ender.communitydayspawner;
+package com.ender.communitydayspawner.spawners;
 
 // Java standard library
 import java.util.List;

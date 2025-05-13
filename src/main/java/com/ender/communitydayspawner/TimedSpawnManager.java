@@ -1,6 +1,7 @@
 package com.ender.communitydayspawner;
 
 import com.ender.communitydayspawner.tracking.CatchTracker;
+import com.ender.communitydayspawner.spawners.TimedSpawnInstance;
 
 import com.cobblemon.mod.common.api.pokemon.PokemonProperties;
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity;
@@ -37,9 +38,9 @@ public class TimedSpawnManager {
         tasks.add(new TimedSpawnInstance(species, minutes, origin));
     }
 
-    //public static void activateLegendaryDaySpawner() {
-    //    tasks.add(new LegendarySpawnInstance());
-    //}
+    public static void activateLegendaryDaySpawner() {
+        tasks.add(new LegendarySpawnInstance());
+    }
 
     public static boolean isCommunityDaySpecies(String species) {
         return tasks.stream().anyMatch(task -> task.getSpecies().equalsIgnoreCase(species));
