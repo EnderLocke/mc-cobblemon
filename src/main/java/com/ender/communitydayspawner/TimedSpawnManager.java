@@ -2,6 +2,7 @@ package com.ender.communitydayspawner;
 
 import com.ender.communitydayspawner.tracking.CatchTracker;
 import com.ender.communitydayspawner.spawners.TimedSpawnInstance;
+import com.ender.communitydayspawner.utils.LegendaryUtils;
 
 import com.cobblemon.mod.common.api.pokemon.PokemonProperties;
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity;
@@ -29,17 +30,34 @@ import net.minecraft.util.math.BlockPos;
 public class TimedSpawnManager {
 
     private static final List<TimedSpawnInstance> tasks = new ArrayList<>();
-    private static final int MIN_LEVEL = 10;
-    private static final int LEVEL_RANGE = 31; // max level = MIN_LEVEL + 30
-    private static final double SHINY_CHANCE = 0.15;
-    private static final int AVERAGE_IV_ROLL = 19;
 
     public static void activateCommunityDaySpawner(String species, int minutes, BlockPos origin) {
         tasks.add(new TimedSpawnInstance(species, minutes, origin));
     }
 
-    public static void activateLegendaryDaySpawner() {
-        tasks.add(new LegendarySpawnInstance());
+    public static void activateLegendaryDaySpawner(int minutes, BlockPos origin) {
+        List<String> LEGENDARY_SPECIES = LegendaryUtils.getAllLegendarySpecies();
+
+        if (LEGENDARY_SPECIES.isEmpty()) {
+            System.err.println("No legendary Pokémon available to spawn.");
+            return;
+        }
+
+        String selected = LEGENDARY_SPECIES.get(new Random().nextInt(LEGENDARY_SPECIES.size()));
+
+        tasks.add(new TimedSpawnInstance(
+                selected,
+                minutes,
+                origin,
+                40,    // min level for legendaries
+                60,    // level range (so 60–99)
+                25,    // average IVs higher
+                0.05,  // lower shiny rate
+                0.005, /// much lower spawn rate
+                12     // larger chunk radius
+        ));
+
+        System.out.println("🔮 Legendary Community Day: " + selected + " will spawn!");
     }
 
     public static boolean isCommunityDaySpecies(String species) {
