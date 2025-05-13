@@ -2,6 +2,8 @@ package com.ender.communitydayspawner;
 
 import com.ender.communitydayspawner.tracking.CatchTracker;
 import com.ender.communitydayspawner.commands.StartTimedSpawnCommand;
+import com.ender.communitydayspawner.boosters.CatchRateBooter;
+
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
@@ -23,6 +25,7 @@ public class ModMain implements ModInitializer {
             StartTimedSpawnCommand.register(dispatcher); // Correct method call
         });
 
+        CatchRateBooster.init();
 
         CobblemonEvents.POKEMON_CAPTURED.subscribe(Priority.NORMAL, event -> {
             handlePokemonCapture(event);
