@@ -1,7 +1,7 @@
 package com.ender.communitydayspawner;
 
 import com.ender.communitydayspawner.tracking.CatchTracker;
-import com.ender.communitydayspawner.commands.StartTimedSpawnCommand;
+import com.ender.communitydayspawner.commands.*;
 import com.ender.communitydayspawner.boosters.CatchRateBooster;
 
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
@@ -23,6 +23,10 @@ public class ModMain implements ModInitializer {
         // Register the command with the correct method signature
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
             StartTimedSpawnCommand.register(dispatcher); // Correct method call
+        });
+
+        CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
+            StartLegendarySpawnCommand.register(dispatcher); // Correct method call
         });
 
         CatchRateBooster.init();
