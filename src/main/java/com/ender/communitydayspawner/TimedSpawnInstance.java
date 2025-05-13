@@ -17,8 +17,9 @@ public class TimedSpawnInstance {
     private final long startTime;
     private final List<UUID> spawnedPokemon = new ArrayList<>();
     private final int warnTimeRemainingSeconds;
-    private int minutesRemaining;
+    private int cDaySeconds;
     private boolean warned = false;
+    private int cdTotalSeconds;
 
     public TimedSpawnInstance(String species, int minutes, BlockPos origin) {
         this.species = species;
@@ -26,12 +27,18 @@ public class TimedSpawnInstance {
         this.origin = origin;
         this.startTime = System.currentTimeMillis();
         this.warnTimeRemainingSeconds = 20 + new Random().nextInt(21); // 20–40 seconds
-        this.minutesRemaining = minutes * 60; // seconds
+        this.cDaySeconds = minutes * 60; // seconds
+        this.cdTotalSeconds = this.warnTimeRemainingSeconds + this.cDaySeconds;
     }
 
     public boolean isExpired() {
         long elapsed = System.currentTimeMillis() - startTime;
-        return elapsed > (minutes * 60 * 1000L);
+        return elapsed > (cDaySeconds);
+    }
+    
+    public boolean isOver() {
+        long elapsed = System.currentTimeMillis() - startTime;
+        return elapsed > (cDaySeconds);
     }
 
     public void trySpawn(ServerWorld world) {
@@ -64,7 +71,7 @@ public class TimedSpawnInstance {
     }
 
     public boolean shouldWarn() {
-        return !warned && minutesRemaining <= warnTimeRemainingSeconds;
+        return !warned && isExpired();
     }
 
     public void markWarned() {

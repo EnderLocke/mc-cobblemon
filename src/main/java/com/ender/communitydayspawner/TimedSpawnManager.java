@@ -41,7 +41,7 @@ public class TimedSpawnManager {
                 task.markWarned();
             }
 
-            if (task.isExpired()) {
+            if (task.isOver()) {
                 endCommunityDay(world, task);
                 iter.remove();
             } else {
