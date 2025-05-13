@@ -24,7 +24,7 @@ public class StartTimedSpawnCommand {
                                     BlockPos pos = ctx.getSource().getPlayer().getBlockPos();
 
                                     // Start spawning process
-                                    TimedSpawnManager.activateSpawner(pokemon, minutes, pos);
+                                    TimedSpawnManager.activateCommunityDaySpawner(pokemon, minutes, pos);
 
                                     // Send feedback to the command executor
                                     ctx.getSource().sendFeedback(() ->
