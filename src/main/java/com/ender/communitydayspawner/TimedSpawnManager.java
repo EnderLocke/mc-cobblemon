@@ -3,11 +3,13 @@ package com.ender.communitydayspawner;
 import com.ender.communitydayspawner.tracking.CatchTracker;
 import com.ender.communitydayspawner.utils.IvUtils;
 
+import com.cobblemon.mod.common.Cobblemon;
 import com.cobblemon.mod.common.api.pokemon.PokemonProperties;
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity;
 import com.cobblemon.mod.common.CobblemonEntities;
 import com.cobblemon.mod.common.pokemon.Pokemon;
 import com.cobblemon.mod.common.api.pokemon.stats.Stat;
+import com.cobblemon.mod.common.api.pokemon.stats.StatProvider;
 import com.cobblemon.mod.common.api.pokemon.stats.Stats;
 
 import net.minecraft.server.world.ServerWorld;
@@ -87,7 +89,8 @@ public class TimedSpawnManager {
             return null;
         }
 
-        for (Stat stat : Stats.PERMANENT) {
+        StatProvider provider = Cobblemon.INSTANCE.getStatProvider();
+        for (Stat stat : provider.ofType(Stat.Type.PERMANENT)) {
             int rolledIv = IvUtils.rollIv(AVERAGE_IV_ROLL);
             pokemon.getIvs().set(stat, rolledIv);
         }
