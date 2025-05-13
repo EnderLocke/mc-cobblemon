@@ -1,11 +1,14 @@
 package com.ender.communitydayspawner;
 
 import com.ender.communitydayspawner.tracking.CatchTracker;
+import com.ender.communitydayspawner.utils.IvUtils;
 
 import com.cobblemon.mod.common.api.pokemon.PokemonProperties;
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity;
 import com.cobblemon.mod.common.CobblemonEntities;
 import com.cobblemon.mod.common.pokemon.Pokemon;
+import com.cobblemon.mod.common.api.pokemon.stats.Stat;
+import com.cobblemon.mod.common.api.pokemon.stats.Stats;
 
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
@@ -33,6 +36,7 @@ public class TimedSpawnManager {
     private static final int MIN_LEVEL = 10;
     private static final int LEVEL_RANGE = 31; // max level = MIN_LEVEL + 30
     private static final double SHINY_CHANCE = 0.15;
+    private static final int AVERAGE_IV_ROLL = 19;
 
     public static void activateSpawner(String species, int minutes, BlockPos origin) {
         tasks.add(new TimedSpawnInstance(species, minutes, origin));
@@ -81,6 +85,11 @@ public class TimedSpawnManager {
         if (pokemon == null) {
             System.err.println("❌ Failed to create Pokémon for species: " + species);
             return null;
+        }
+
+        for (Stat stat : Stats.PERMANENT) {
+            int rolledIv = IvUtils.rollIv(AVERAGE_IV_ROLL);
+            pokemon.getIvs().set(stat, rolledIv);
         }
 
         BlockPos spawnPos = getRandomPositionNearby(world, origin);
@@ -174,4 +183,5 @@ public class TimedSpawnManager {
 
         return new BlockPos(x, y, z);
     }
+
 }

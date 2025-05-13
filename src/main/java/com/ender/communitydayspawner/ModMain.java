@@ -2,7 +2,7 @@ package com.ender.communitydayspawner;
 
 import com.ender.communitydayspawner.tracking.CatchTracker;
 import com.ender.communitydayspawner.commands.StartTimedSpawnCommand;
-import com.ender.communitydayspawner.boosters.CatchRateBooter;
+import com.ender.communitydayspawner.boosters.CatchRateBooster;
 
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.api.ModInitializer;
@@ -10,8 +10,8 @@ import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.server.world.ServerWorld;
 
 import kotlin.Unit;
-import com.cobblemon.mod.common.api.Priority;
 
+import com.cobblemon.mod.common.api.Priority;
 import com.cobblemon.mod.common.api.events.pokemon.PokemonCapturedEvent;
 import com.cobblemon.mod.common.Cobblemon;
 import com.cobblemon.mod.common.pokemon.Pokemon;
