@@ -35,6 +35,12 @@ public class TimedSpawnManager {
         Iterator<TimedSpawnInstance> iter = tasks.iterator();
         while (iter.hasNext()) {
             TimedSpawnInstance task = iter.next();
+
+            if (task.shouldWarn()) {
+                warnCommunityDayEnding(world, task.getSpecies());
+                task.markWarned();
+            }
+
             if (task.isExpired()) {
                 endCommunityDay(world, task);
                 iter.remove();
@@ -42,6 +48,16 @@ public class TimedSpawnManager {
                 task.trySpawn(world);
             }
         }
+    }
+
+    private static void warnCommunityDayEnding(ServerWorld world, String species) {
+        world.getServer().getPlayerManager().broadcast(
+                Text.literal("⚠️ Community Day for ")
+                        .append(Text.literal(species).formatted(Formatting.GREEN, Formatting.BOLD))
+                        .append(" is ending soon!")
+                        .formatted(Formatting.RED),
+                false
+        );
     }
 
     public static PokemonEntity spawnPokemon(ServerWorld world, String species, BlockPos origin) {
