@@ -1,0 +1,59 @@
+{
+  "milestones": [
+    {
+      "count": 1,
+      "message": "Welcome, pokemon trainer. gifts are included",
+      "items": [
+        { "id": "cobblemon:poke_ball", "count": 128 },
+        { "id": "cobblemon:great_ball", "count": 64 },
+        { "id": "cobblemon:ultra_ball", "count": 32 },
+        { "id": "cobblemon:master_ball", "count": 1 }
+      ]
+    },
+    {
+      "count": 5,
+      "message": "🎉 Congrats on your 5th login!",
+      "items": [
+        { "id": "minecraft:diamond", "count": 16 },
+        { "id": "cobblemon:ultra_ball", "count": 16 }
+      ]
+    },
+    {
+      "count": 10,
+      "message": "🎉 Congrats on your 10th login!",
+      "items": [
+        { "id": "minecraft:diamond", "count": 32 }
+      ]
+    },
+    {
+      "count": 25,
+      "message": "🎉 Congrats on your 25th login!",
+      "items": [
+        { "id": "minecraft:diamond", "count": 32 },
+        { "id": "cobblemon:ultra_ball", "count": 32}
+      ]
+    },
+    {
+      "count": 50,
+      "message": "🔥 You've reached 50 logins! Keep it up!",
+      "items": [
+        { "id": "minecraft:diamond", "count": 64 }
+      ]
+    },
+    {
+      "count": 75,
+      "message": "🎉 Congrats on your 25th login!",
+      "items": [
+        { "id": "minecraft:diamond", "count": 64 },
+        { "id": "cobblemon:ultra_ball", "count": 64 }
+      ]
+    },
+    {
+      "count": 100,
+      "message": "💯 100 logins! You're unstoppable!",
+      "items": [
+        { "id": "minecraft:diamond", "count": 128 }
+      ]
+    }
+  ]
+}

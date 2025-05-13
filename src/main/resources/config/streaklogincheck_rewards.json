@@ -1,0 +1,116 @@
+{
+  "milestones": [
+    {
+      "count": 1,
+      "message": "you've logged in for 1 day in a row, cool?",
+      "items": [
+        { "id": "cobblemon:poke_ball", "count": 16 }
+      ]
+    },
+    {
+      "count": 2,
+      "message": "you've logged in for 2 days in a row!!",
+      "items": [
+        { "id": "cobblemon:great_ball", "count": 16 }
+      ]
+    },
+    {
+      "count": 3,
+      "message": "you've logged in for 3 days in a row!!",
+      "items": [
+        { "id": "cobblemon:safari_ball", "count": 16 }
+      ]
+    },
+    {
+      "count": 4,
+      "message": "you've logged in for 4 days in a row!!",
+      "items": [
+        { "id": "cobblemon:great_ball", "count": 32 }
+      ]
+    },
+    {
+      "count": 5,
+      "message": "you've logged in for 5 days in a row!!",
+      "items": [
+        { "id": "cobblemon:safari_ball", "count": 32 }
+      ]
+    },
+    {
+      "count": 6,
+      "message": "you've logged in for 6 days in a row!!",
+      "items": [
+        { "id": "cobblemon:safari_ball", "count": 32 }
+      ]
+    },
+    {
+      "count": 7,
+      "message": "🎉 Congrats on your week straight!",
+      "items": [
+        { "id": "cobblemon:ultra_ball", "count": 64 }
+      ]
+    },
+    {
+      "count": 8,
+      "message": "you've logged in for 8 day in a row, cool?",
+      "items": [
+        { "id": "cobblemon:poke_ball", "count": 16 }
+      ]
+    },
+    {
+      "count": 9,
+      "message": "you've logged in for 9 days in a row!!",
+      "items": [
+        { "id": "cobblemon:great_ball", "count": 16 }
+      ]
+    },
+    {
+      "count": 10,
+      "message": "you've logged in for 10 days in a row!!",
+      "items": [
+        { "id": "cobblemon:safari_ball", "count": 16 }
+      ]
+    },
+    {
+      "count": 11,
+      "message": "you've logged in for 11 days in a row!!",
+      "items": [
+        { "id": "cobblemon:great_ball", "count": 32 }
+      ]
+    },
+    {
+      "count": 12,
+      "message": "you've logged in for 12 days in a row!!",
+      "items": [
+        { "id": "cobblemon:safari_ball", "count": 32 }
+      ]
+    },
+    {
+      "count": 13,
+      "message": "you've logged in for 13 days in a row!!",
+      "items": [
+        { "id": "cobblemon:safari_ball", "count": 32 }
+      ]
+    },
+    {
+      "count": 14,
+      "message": "🔥 You've reached 14 straight logins! Keep it up!",
+      "items": [
+        { "id": "minecraft:diamond", "count": 1 }
+      ]
+    },
+    {
+      "count": 21,
+      "message": "💯 3 weeks! You're unstoppable!",
+      "items": [
+        { "id": "minecraft:diamond", "count": 1 }
+      ]
+    },
+    {
+      "count": 30,
+      "message": "💯 3 weeks! You're unstoppable!",
+      "items": [
+        { "id": "cobblemon:master_ball", "count": 1 }
+      ]
+    }
+  ]
+}
